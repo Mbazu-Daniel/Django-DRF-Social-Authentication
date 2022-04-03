@@ -2,6 +2,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from authentication.models import User
 
+
 class Project(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=200, blank=False, null=False)
@@ -15,29 +16,6 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
-
-
-class Review(models.Model):
-    review_user = models.ForeignKey(User, on_delete=models.CASCADE)
-    rating = models.PositiveIntegerField(
-        validators=[MinValueValidator(1), MaxValueValidator(5)]
-    )
-    description = models.CharField(max_length=200, null=True)
-    project = models.ForeignKey(
-        Project, on_delete=models.CASCADE, related_name="reviews"
-    )
-    active = models.BooleanField(default=True)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return (
-            str(self.rating)
-            + "  |  "
-            + self.project.title
-            + "  |  "
-            + str(self.review_user)
-        )
 
 
 class Experience(models.Model):
@@ -58,7 +36,6 @@ class Certificate(models.Model):
 
     def __str__(self):
         return self.host
-
 
 
 class Contact(models.Model):
