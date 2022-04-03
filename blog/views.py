@@ -23,7 +23,7 @@ class PostList(generics.ListCreateAPIView):
 
     # overwrite get objects
     def get_object(self, queryset=None, **kwargs):
-        item = self.kwargs.get('pk')
+        item = self.kwargs.get("pk")
         return get_object_or_404(Post, slug=item)
 
 
