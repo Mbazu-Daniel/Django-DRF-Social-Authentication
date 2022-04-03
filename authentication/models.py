@@ -4,7 +4,8 @@ from django.db import models
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
-    PermissionsMixin, AbstractUser,
+    PermissionsMixin,
+    AbstractUser,
 )
 
 from django.db import models
@@ -60,7 +61,7 @@ class User(AbstractUser):
     )
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["first_name","last_name","username", "phone_number"]
+    REQUIRED_FIELDS = ["first_name", "last_name", "username", "phone_number"]
 
     objects = UserManager()
 

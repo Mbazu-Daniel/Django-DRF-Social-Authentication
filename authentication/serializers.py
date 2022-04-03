@@ -29,7 +29,6 @@ class RegisterSerializer(serializers.ModelSerializer):
             "username",
             "phone_number",
             "password",
-
         ]
 
     def validate(self, attrs):
