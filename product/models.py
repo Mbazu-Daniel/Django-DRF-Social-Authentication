@@ -10,7 +10,7 @@ class Project(models.Model):
     background = models.TextField()
     goal = models.TextField()
     result = models.TextField()
-    duration = models.TextField()
+    duration = models.DateField()
     interpretation = models.TextField()
     tools = models.TextField()
 
