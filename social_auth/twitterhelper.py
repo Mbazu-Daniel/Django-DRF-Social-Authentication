@@ -17,15 +17,15 @@ class TwitterAuthTokenVerification:
         user profile info
         """
 
-        consumer_api_key = os.environ.get('TWITTER_API_KEY')
-        consumer_api_secret_key = os.environ.get('TWITTER_CONSUMER_SECRET')
+        consumer_api_key = os.environ.get("TWITTER_API_KEY")
+        consumer_api_secret_key = os.environ.get("TWITTER_CONSUMER_SECRET")
 
         try:
             api = twitter.Api(
                 consumer_key=consumer_api_key,
                 consumer_secret=consumer_api_secret_key,
                 access_token_key=access_token_key,
-                access_token_secret=access_token_secret
+                access_token_secret=access_token_secret,
             )
 
             user_profile_info = api.VerifyCredentials(include_email=True)
@@ -33,5 +33,6 @@ class TwitterAuthTokenVerification:
 
         except Exception as identifier:
 
-            raise serializers.ValidationError({
-                "tokens": ["The tokens are invalid or expired"]})
+            raise serializers.ValidationError(
+                {"tokens": ["The tokens are invalid or expired"]}
+            )
