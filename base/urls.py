@@ -43,6 +43,7 @@ urlpatterns = [
     ),
     path("user/", include("product.urls")),
     path("blog/", include("blog.urls")),
+    # path('project/', include('user_project.urls')),
     path("", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),
     path(
         "api/api.json/",
