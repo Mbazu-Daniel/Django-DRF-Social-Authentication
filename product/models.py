@@ -35,7 +35,7 @@ class SocialMedia(models.Model):
     linkedin_profile = models.CharField(max_length=200, blank=True, null=True)
     youtube_profile = models.CharField(max_length=200, blank=True, null=True)
     facebook_profile = models.CharField(max_length=200, blank=True, null=True)
-    instagram_profile = models.CharField(max_length=200, blank=True, null=True)
+    instagram_profile = models.CharField(max_length=200,  blank=True, null=True)
     medium_profile = models.CharField(max_length=200, blank=True, null=True)
     github_profile = models.CharField(max_length=200, blank=True, null=True)
     hashnode_profile = models.CharField(max_length=200, blank=True, null=True)
