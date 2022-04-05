@@ -5,7 +5,7 @@ from rest_framework.routers import DefaultRouter
 
 # from .views import BlogPost
 
-app_name = "post"
+app_name = "blog"
 
 urlpatterns = [
     path("<int:pk>/", PostDetail.as_view(), name="blog-detail"),

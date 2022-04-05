@@ -17,20 +17,20 @@ Creating and list out the blog created
 
 
 class PostList(generics.ListCreateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminOrReadOnly]
     queryset = Post.postobjects.all()  # we are using the object we made in the model
     serializer_class = PostSerializer
-
-    # overwrite get objects
+    
+            # overwrite get objects
     def get_object(self, queryset=None, **kwargs):
         item = self.kwargs.get("pk")
         return get_object_or_404(Post, slug=item)
-
 
 class PostDetail(generics.RetrieveUpdateAPIView):
     permission_classes = [IsAdminOrReadOnly]
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    
 
 
 """
