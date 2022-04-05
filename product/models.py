@@ -3,21 +3,6 @@ from django.db import models
 from authentication.models import User
 
 
-class Project(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    title = models.CharField(max_length=200, blank=False, null=False)
-    image = models.ImageField(upload_to="media")
-    background = models.TextField()
-    goal = models.TextField()
-    result = models.TextField()
-    duration = models.DateField()
-    interpretation = models.TextField()
-    tools = models.TextField()
-
-    def __str__(self):
-        return self.title
-
-
 class Experience(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     company = models.CharField(max_length=200, blank=False, null=False)
@@ -47,10 +32,10 @@ class Contact(models.Model):
 
 class SocialMedia(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    linkedin_profile = models.URLField()
-    youtube_profile = models.URLField()
-    facebook_profile = models.URLField()
-    instagram_profile = models.URLField()
-    medium_profile = models.URLField()
-    github_profile = models.URLField()
-    hashnode_profile = models.URLField()
+    linkedin_profile = models.CharField(max_length=200)
+    youtube_profile = models.CharField(max_length=200)
+    facebook_profile = models.CharField(max_length=200)
+    instagram_profile = models.CharField(max_length=200)
+    medium_profile = models.CharField(max_length=200)
+    github_profile = models.CharField(max_length=200)
+    hashnode_profile = models.CharField(max_length=200)

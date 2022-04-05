@@ -1,6 +1,4 @@
 from rest_framework import serializers
-from .models import Project
-
 from .models import Certificate, Experience, SocialMedia
 
 
@@ -21,7 +19,3 @@ class SocialMediaSerializer(serializers.ModelSerializer):
         model = SocialMedia
         fields = "__all__"
 
-
-class ProjectSerializer(serializers.ModelSerializer):
-    model = Project
-    fields = "__all__"

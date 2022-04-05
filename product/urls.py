@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import include, path
 
 from .models import SocialMedia
 from .views import (
@@ -9,10 +9,13 @@ from .views import (
     SocialMediaList,
     SocialMediaDetail,
 )
+from rest_framework.routers import DefaultRouter
 
-app_name = "blog"
+app_name = "product"
+
 
 urlpatterns = [
+     
     path("experience/<int:pk>/", ExperienceDetail.as_view(), name="experience-detail"),
     path("experience/", ExperienceList.as_view(), name="experience-create"),
     # Certification urls
@@ -23,4 +26,6 @@ urlpatterns = [
     # Social media account details
     path("social/<int:pk>/", SocialMediaDetail.as_view(), name="social-detail"),
     path("social/", SocialMediaList.as_view(), name="social-create"),
+    
+    
 ]

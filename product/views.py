@@ -1,14 +1,13 @@
-from django.shortcuts import render
-from rest_framework import generics
+from django.shortcuts import get_object_or_404, render
+from rest_framework import generics,viewsets
 from rest_framework.permissions import IsAuthenticated
-from .models import Project
-from .serializers import ProjectSerializer
 from blog.permissions import IsUserOrReadOnly
 from .models import Experience, Certificate, SocialMedia
 from .serializers import (
     ExperienceSerializer,
     CertificateSerializer,
-    SocialMediaSerializer,
+    SocialMediaSerializer
+   
 )
 
 """
@@ -20,12 +19,14 @@ class ExperienceList(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     queryset = Experience.objects.all()  # we are using the object we made in the model
     serializer_class = ExperienceSerializer
-
-
+    
+    
 class ExperienceDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsUserOrReadOnly]
     queryset = Experience.objects.all()
     serializer_class = ExperienceSerializer
+    
+
 
 
 """
@@ -62,18 +63,4 @@ class SocialMediaDetail(generics.RetrieveUpdateAPIView):
     serializer_class = SocialMediaSerializer
 
 
-"""
-User Project update
-"""
 
-
-class ProjectList(generics.ListCreateAPIView):
-    permission_classes = [IsAuthenticated]
-    queryset = Project.objects.all()  # we are using the object we made in the model
-    serializer_class = ProjectSerializer
-
-
-class ProjectDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsUserOrReadOnly]
-    queryset = Project.objects.all()
-    serializer_class = ProjectSerializer
