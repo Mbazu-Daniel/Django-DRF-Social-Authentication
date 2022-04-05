@@ -54,13 +54,14 @@ class RegisterView(generics.GenericAPIView):
         user = User.objects.get(email=user_data["email"])
         token = RefreshToken.for_user(user).access_token
         current_site = get_current_site(request).domain
+        # it reverse the registration to the email verification
         relativeLink = reverse("email-verify")
-        absurl = "http://" + current_site + relativeLink + "?token=" + str(token)
+        absolute_url = "http://" + current_site + relativeLink + "?token=" + str(token)
         email_body = (
             "Hi "
             + user.username
             + " Use the link below to verify your email \n"
-            + absurl
+            + absolute_url
         )
         data = {
             "email_body": email_body,
@@ -86,7 +87,7 @@ class VerifyEmail(views.APIView):
     def get(self, request):
         token = request.GET.get("token")
         try:
-            payload = jwt.decode(token, settings.SECRET_KEY)
+            payload = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
             user = User.objects.get(id=payload["user_id"])
             if not user.is_verified:
                 user.is_verified = True
@@ -131,10 +132,10 @@ class RequestPasswordResetEmail(generics.GenericAPIView):
             )
 
             redirect_url = request.data.get("redirect_url", "")
-            absurl = "http://" + current_site + relativeLink
+            absolute_url = "http://" + current_site + relativeLink
             email_body = (
                 "Hello, \n Use link below to reset your password  \n"
-                + absurl
+                + absolute_url
                 + "?redirect_url="
                 + redirect_url
             )
