@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     "authentication",
     "product",
     "blog",
-    'user_project',
+    # 'user_project',
     "phonenumber_field",
 ]
 
