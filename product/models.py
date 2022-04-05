@@ -32,10 +32,10 @@ class Contact(models.Model):
 
 class SocialMedia(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    linkedin_profile = models.CharField(max_length=200)
-    youtube_profile = models.CharField(max_length=200)
-    facebook_profile = models.CharField(max_length=200)
-    instagram_profile = models.CharField(max_length=200)
-    medium_profile = models.CharField(max_length=200)
-    github_profile = models.CharField(max_length=200)
-    hashnode_profile = models.CharField(max_length=200)
+    linkedin_profile = models.CharField(max_length=200, blank=True, null=True)
+    youtube_profile = models.CharField(max_length=200, blank=True, null=True)
+    facebook_profile = models.CharField(max_length=200, blank=True, null=True)
+    instagram_profile = models.CharField(max_length=200, blank=True, null=True)
+    medium_profile = models.CharField(max_length=200, blank=True, null=True)
+    github_profile = models.CharField(max_length=200, blank=True, null=True)
+    hashnode_profile = models.CharField(max_length=200, blank=True, null=True)
