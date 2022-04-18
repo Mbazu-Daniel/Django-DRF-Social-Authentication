@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     "blog",
     # 'user_project',
     "phonenumber_field",
+    "django_filters",
+    "taggit",
 ]
 
 MIDDLEWARE = [
@@ -93,17 +95,24 @@ WSGI_APPLICATION = "base.wsgi.application"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 
-DATABASES = {}
+# DATABASES = {}
 
-if DEBUG:
-    DATABASES["default"] = {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+# if DEBUG:
+#     DATABASES["default"] = {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# else:
+#     DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+#     DATABASES["default"] = dj_database_url.config(default=config("DATABASE_URL"))
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-else:
-    DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
-    DATABASES["default"] = dj_database_url.config(default=config("DATABASE_URL"))
-
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -144,6 +153,10 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -173,30 +186,25 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
-'REFRESH_TOKEN_LIFETIME': timedelta(days=5),
-'ROTATE_REFRESH_TOKENS': False,
-'BLACKLIST_AFTER_ROTATION': True,
-
-'ALGORITHM': 'HS256',
-'SIGNING_KEY': settings.SECRET_KEY,
-'VERIFYING_KEY': None,
-'AUDIENCE': None,
-'ISSUER': None,
-
-'AUTH_HEADER_TYPES': ('Bearer',),
-'USER_ID_FIELD': 'id',
-'USER_ID_CLAIM': 'user_id',
-
-'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
-'TOKEN_TYPE_CLAIM': 'token_type',
-
-'JTI_CLAIM': 'jti',
-'TOKEN_USER_CLASS': 'rest_framework_simplejwt.models.TokenUser',
-
-'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
-'SLIDING_TOKEN_LIFETIME': timedelta(days=10),
-'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=20),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=5),
+    "ROTATE_REFRESH_TOKENS": False,
+    "BLACKLIST_AFTER_ROTATION": True,
+    "ALGORITHM": "HS256",
+    "SIGNING_KEY": settings.SECRET_KEY,
+    "VERIFYING_KEY": None,
+    "AUDIENCE": None,
+    "ISSUER": None,
+    "AUTH_HEADER_TYPES": ("Bearer",),
+    "USER_ID_FIELD": "id",
+    "USER_ID_CLAIM": "user_id",
+    "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
+    "TOKEN_TYPE_CLAIM": "token_type",
+    "JTI_CLAIM": "jti",
+    "TOKEN_USER_CLASS": "rest_framework_simplejwt.models.TokenUser",
+    "SLIDING_TOKEN_REFRESH_EXP_CLAIM": "refresh_exp",
+    "SLIDING_TOKEN_LIFETIME": timedelta(days=1),
+    "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=3),
 }
 
 STATIC_URL = "/static/"
