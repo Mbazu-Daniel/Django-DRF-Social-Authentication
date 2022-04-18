@@ -30,9 +30,9 @@ class Certificate(models.Model):
 
 
 class Contact(models.Model):
-    last_name = models.CharField(max_length=200, blank=False, null=False)
+    full_name = models.CharField(max_length=200, blank=False, null=False)
     email = models.EmailField()
-    subject = models.CharField(max_length=200, blank=False)
+    subject = models.CharField(max_length=200, blank=False, null=False)
     description = models.TextField()
 
 
