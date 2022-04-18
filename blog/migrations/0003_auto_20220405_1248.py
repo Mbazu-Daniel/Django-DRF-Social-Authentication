@@ -6,18 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('blog', '0002_auto_20220403_1505'),
+        ("blog", "0002_auto_20220403_1505"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='postreview',
-            old_name='project',
-            new_name='post',
+            model_name="postreview",
+            old_name="project",
+            new_name="post",
         ),
         migrations.AlterField(
-            model_name='post',
-            name='status',
-            field=models.CharField(choices=[('draft', 'Draft'), ('published', 'Published')], default='draft', max_length=10),
+            model_name="post",
+            name="status",
+            field=models.CharField(
+                choices=[("draft", "Draft"), ("published", "Published")],
+                default="draft",
+                max_length=10,
+            ),
         ),
     ]

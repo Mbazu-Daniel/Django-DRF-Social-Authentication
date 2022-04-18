@@ -3,14 +3,13 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.utils import timezone
 
+# from taggit.managers import TaggableManager
 from authentication.models import User
+from django.utils.translation import gettext_lazy as _
 
-#
-# class Category(models.Model):
-#     name = models.CharField(max_length=100)
-#
-#     def __str__(self):
-#         return self.name
+
+def upload_to(instance, filename):
+    return "posts/{filename}".format(filename=filename)
 
 
 class Post(models.Model):
@@ -31,9 +30,10 @@ class Post(models.Model):
     title = models.CharField(max_length=250)
     excerpt = models.TextField(null=True)
     content = models.TextField()
+    image = models.ImageField(_("Image"), upload_to=upload_to, blank=True, null=True)
     slug = models.SlugField(max_length=250, unique_for_date="published")
     published = models.DateTimeField(default=timezone.now)
-    author = models.ForeignKey(
+    user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="blog_posts"
     )
     status = models.CharField(max_length=10, choices=options, default="draft")
@@ -47,16 +47,13 @@ class Post(models.Model):
         return self.title
 
 
-class PostReview(models.Model):
+class Review(models.Model):
     review_user = models.ForeignKey(User, on_delete=models.CASCADE)
-    rating = models.PositiveIntegerField(
-        validators=[MinValueValidator(1), MaxValueValidator(5)]
-    )
-    description = models.CharField(max_length=200, null=True)
+    review = models.CharField(max_length=200, null=True)
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="reviews")
     active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.review_user
+        return str(self.review_user)
