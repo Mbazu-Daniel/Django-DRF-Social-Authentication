@@ -24,7 +24,7 @@ app_name = "blog"
 urlpatterns = [
     path("post/", PostList.as_view(), name="post-create"),
     path("post/<str:pk>/", PostDetail.as_view(), name="post-detail"),
-    path("post/search/", PostListDetailfilter.as_view(), name="post-search"),
+    # path("post/search?q=<str:slug>/", PostListDetailfilter.as_view(), name="post-search"),
    
    
     # User Review
