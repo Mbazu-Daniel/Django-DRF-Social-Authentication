@@ -39,7 +39,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     path("whoami/", admin.site.urls),
     # path('project/', include('user_project.urls')),
-    path("accounts/", include("authentication.urls")),
+    path("auth/", include("authentication.urls")),
     path(
         "social_auth/",
         include(("social_auth.urls", "social_auth"), namespace="social_auth"),

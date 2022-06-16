@@ -26,13 +26,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config("SECRET_KEY")
+# SECRET_KEY = config("SECRET_KEY")
+SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DEBUG", cast=bool)
+# DEBUG = config("DEBUG", cast=bool)
+DEBUG = 'RENDER' not in os.environ
 
 # ALLOWED_HOSTS = ['198.211.99.20', 'localhost', '127.0.0.1']
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
+
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 AUTH_USER_MODEL = "authentication.User"
 # Application definition
@@ -95,16 +101,16 @@ WSGI_APPLICATION = "base.wsgi.application"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 
-# DATABASES = {}
+DATABASES = {}
 
-# if DEBUG:
-#     DATABASES["default"] = {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# else:
-#     DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
-#     DATABASES["default"] = dj_database_url.config(default=config("DATABASE_URL"))
+if DEBUG:
+    DATABASES["default"] = {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+else:
+    DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+    DATABASES["default"] = dj_database_url.config(default=config("DATABASE_URL"))
 
 
 DATABASES = {
@@ -113,6 +119,17 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# render database
+
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         # Feel free to alter this value to suit your needs.
+#         default='postgresql://postgres:postgres@localhost:5432/mysite',
+#         conn_max_age=600
+#     )
+# }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -171,9 +188,9 @@ SWAGGER_SETTINGS = {
 # CORS WHITELIST
 CORS_ORIGIN_WHITELIST = ["http://localhost:3000", "http://127.0.0.1:8000"]
 
-CORS_ORIGIN_REGEX_WHITELIST = [
-    r"^https://\w+\.bizka\.app$",
-]
+# CORS_ORIGIN_REGEX_WHITELIST = [
+#     r"^https://\w+\.bizka\.app$",
+# ]
 
 
 REST_FRAMEWORK = {
