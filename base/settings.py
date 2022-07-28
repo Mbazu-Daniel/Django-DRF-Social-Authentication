@@ -189,9 +189,6 @@ SWAGGER_SETTINGS = {
 CORS_ORIGIN_WHITELIST = ["*"]
 CORS_ALLOWED_ORIGINS = ["*"] # this allow for all endpoint can call but we will change at production 
 
-# CORS_ORIGIN_REGEX_WHITELIST = [
-#     r"^https://\w+\.bizka\.app$",
-# ]
 
 
 REST_FRAMEWORK = {
