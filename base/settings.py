@@ -33,6 +33,11 @@ SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 # DEBUG = config("DEBUG", cast=bool)
 DEBUG = 'RENDER' not in os.environ
 
+
+
+
+
+
 # ALLOWED_HOSTS = ['198.211.99.20', 'localhost', '127.0.0.1']
 ALLOWED_HOSTS = []
 
@@ -125,7 +130,7 @@ else:
 # DATABASES = {
 #     'default': dj_database_url.config(
 #         # Feel free to alter this value to suit your needs.
-#         default='postgresql://postgres:postgres@localhost:5432/mysite',
+#         default='postgresql://postgres:postgres@localhost:5432/bizka',
 #         conn_max_age=600
 #     )
 # }
@@ -186,13 +191,10 @@ SWAGGER_SETTINGS = {
 }
 
 # CORS WHITELIST
-CORS_ORIGIN_WHITELIST = ["*"]
-CORS_ALLOWED_ORIGINS = ["*"] # this allow for all endpoint can call but we will change at production 
-
-# CORS_ORIGIN_REGEX_WHITELIST = [
-#     r"^https://\w+\.bizka\.app$",
-# ]
-
+CORS_ALLOWED_ORIGINS = ["https://bizka.onrender.com","http://127.0.0.1:8001", "http://localhost:8001", 
+                        "http://127.0.0.1:8000", "http://localhost:8000", "http://127.0.0.1:3000", "http://localhost:3000",
+                        "https://bizka.onrender.com"
+                        ]
 
 REST_FRAMEWORK = {
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
