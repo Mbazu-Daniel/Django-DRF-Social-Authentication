@@ -33,7 +33,9 @@ if DEBUG:
             }
         }
 else: 
-    DATABASES = {
-        "default": dj_database_url.config()
-    }
-
+   DATABASES = {
+    'default': dj_database_url.config(
+        # Feel free to alter this value to suit your needs.
+        default='postgres://bizka_s7gb_user:wdavXLVEslLKtnld79Qlj8Z72r34gae3@dpg-cbkh3o319n09ee80bdp0-a/bizka_s7gb', conn_max_age=600)
+    )
+}
