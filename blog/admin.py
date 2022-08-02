@@ -1,13 +1,22 @@
 from django.contrib import admin
-from .models import Review, Post
+from .models import Post, Comment, Category
 
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ("title", "id", "slug", "user")
+    list_display = [
+        "id",
+        "category",
+        "user",
+        "title",
+    ]
     prepopulated_fields = {
-        "slug": ("title",),
+        "slug": [
+            "title",
+        ],
     }
+    search_fields = ["title"]
 
 
-admin.site.register(Review)
+admin.site.register(Comment)
+admin.site.register(Category)

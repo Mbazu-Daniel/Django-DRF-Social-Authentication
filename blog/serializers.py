@@ -1,29 +1,32 @@
-from django.conf import settings
 from rest_framework import serializers
-from blog.models import Post
-from .models import Review
+from .models import Post, Comment , Category
 
-# from taggit.serializers import TagListSerializerField, TaggitSerializer
-
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ["category"]
+        
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta: 
+        model = Comment 
+        fields = ["id", "comment"]
+        
+    def create(self, validated_data):
+        post_id = self.context["post_id"]
+        return Post.objects.create(post_id=post_id, **validated_data)
 
 class PostSerializer(serializers.ModelSerializer):
+    comments = CommentSerializer(many = True, read_only=True)
+    
     class Meta:
         model = Post
-        fields = [
-            "id",
-            "title",
-            "user",
-            "image",
-            "slug",
-            "excerpt",
-            "content",
-            "status",
-        ]
+        fields = [   "id", "category",     "title",   "slug",    "user", "image","post","comments",  "status"        ]
+    
+    
+    
 
 
-class ReviewSerializer(serializers.ModelSerializer):
-    review_user = serializers.StringRelatedField(read_only=True)
-
-    class Meta:
-        model = Review
-        exclude = ["post"]
+    
+        
+    
+    
