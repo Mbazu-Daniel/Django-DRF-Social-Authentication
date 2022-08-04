@@ -14,14 +14,40 @@ services:
       - key: DEFAULT_FROM_EMAIL # Imported from Heroku app
         value: djangodaniel97@gmail.com
       - key: EMAIL_HOST_USER # Imported from Heroku app
-        value: djangodaniel97@gmail.com
+        value: djangodaniel97@outlook.com
       - key: GOOGLE_CLIENT_ID # Imported from Heroku app
         value: 133217608930-dkq2gqgs9gjnmdcnr5t78b30a2nu3lfn.apps.googleusercontent.com
       - key: DATABASE_URL # Render managed PostgreSQL database
         fromDatabase:
-          name: postgresql-flexible-92153
+          name: bizka_s7gb_user
           property: connectionString
 
 databases: # Render PostgreSQL managed database
-  - name: postgresql-flexible-92153
+  - name: bizka_s7gb_user
     ipAllowList: [] # only allow internal connections
+
+
+""" New Setup"""
+
+
+databases:
+  - name: bizka_s7gb
+    databaseName: bizka_s7gb
+    user: bizka_s7gb_user
+    ipAllowList: [] # only allow internal connections
+
+services:
+  - type: web
+    name: bizka
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn base.wsgi:application"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: bizka_s7gb
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
