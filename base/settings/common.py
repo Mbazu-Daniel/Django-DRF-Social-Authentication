@@ -62,7 +62,7 @@ INTERNAL_IPS = ["127.0.0.1"]
 #     r"^https://\w+\.onrender\.com$",
 # ]
 
-# CORS_ALLOW_ALL_ORIGINS = True 
+CORS_ALLOW_ALL_ORIGINS = True 
 
 ROOT_URLCONF = "base.urls"
 
