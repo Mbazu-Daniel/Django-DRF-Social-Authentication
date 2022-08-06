@@ -56,13 +56,13 @@ MIDDLEWARE = [
 INTERNAL_IPS = ["127.0.0.1"]
 
 
-CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:8001", "http://localhost:8001", "https://bizka.onrender.com"]
+# CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:8001", "http://localhost:8001", "https://bizka.onrender.com"]
 
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"^https://\w+\.onrender\.com$",
-]
+# CORS_ALLOWED_ORIGIN_REGEXES = [
+#     r"^https://\w+\.onrender\.com$",
+# ]
 
-CORS_ALLOW_ALL_ORIGINS = True 
+# CORS_ALLOW_ALL_ORIGINS = True 
 
 ROOT_URLCONF = "base.urls"
 
