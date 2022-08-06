@@ -11,15 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 INSTALLED_APPS = [
-    #third party 
-     "phonenumber_field",
-    "django_filters",
-    "taggit",
-    "ckeditor",
-     "rest_framework",
-    # "rest_framework_simplejwt.token_blacklist",
-    "corsheaders",
-    "drf_yasg",
+    
     
     #django 
     "django.contrib.admin",
@@ -34,6 +26,16 @@ INSTALLED_APPS = [
     "blog",
     "social_auth",
     # 'user_project',
+    
+    #third party 
+     "phonenumber_field",
+    "django_filters",
+    "taggit",
+    "ckeditor",
+     "rest_framework",
+    # "rest_framework_simplejwt.token_blacklist",
+    "corsheaders",
+    "drf_yasg",
    
 ]
 
@@ -56,6 +58,11 @@ INTERNAL_IPS = ["127.0.0.1"]
 
 CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:8001", "http://localhost:8001", "https://bizka.onrender.com"]
 
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://\w+\.onrender\.com$",
+]
+
+CORS_ALLOW_ALL_ORIGINS = True 
 
 ROOT_URLCONF = "base.urls"
 
