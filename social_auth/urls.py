@@ -7,3 +7,6 @@ urlpatterns = [
     path("facebook/", FacebookSocialAuthView.as_view()),
     path("twitter/", TwitterSocialAuthView.as_view()),
 ]
+
+
+
