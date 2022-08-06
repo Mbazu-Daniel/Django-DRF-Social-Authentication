@@ -11,23 +11,30 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 INSTALLED_APPS = [
+    #third party 
+     "phonenumber_field",
+    "django_filters",
+    "taggit",
+    "ckeditor",
+     "rest_framework",
+    # "rest_framework_simplejwt.token_blacklist",
+    "corsheaders",
+    "drf_yasg",
+    
+    #django 
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "rest_framework",
-    # "rest_framework_simplejwt.token_blacklist",
-    "corsheaders",
-    "drf_yasg",
+   
     "authentication",
     "product",
     "blog",
+    "social_auth",
     # 'user_project',
-    "phonenumber_field",
-    "django_filters",
-    "taggit",
+   
 ]
 
 MIDDLEWARE = [

@@ -28,8 +28,27 @@ if RENDER_EXTERNAL_HOSTNAME:
 # DATABASES = {
 #     'default': dj_database_url.config(        # Feel free to alter this value to suit your needs.        default='postgresql://postgres:postgres@localhost:5432/mysite',        conn_max_age=600    )}
 
+DATABASES = {}
 
-DATABASES = {
+if DEBUG:
+    DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "bizka",
+        "USER": "postgres",
+        "PASSWORD": "qwertyuiop",
+        "HOST": "localhost",
+        "PORT": 5432,
+    }
+}
+#     DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+else:  
+    DATABASES = {
     'default': dj_database_url.config(
         # Feel free to alter this value to suit your needs.
         default='postgresql://bizka_s7gb_user:wdavXLVEslLKtnld79Qlj8Z72r34gae3@dpg-cbkh3o319n09ee80bdp0-a/bizka_s7gb', conn_max_age=600)

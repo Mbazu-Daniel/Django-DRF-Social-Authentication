@@ -1,127 +1,48 @@
-from django.shortcuts import get_object_or_404
-from rest_framework import generics, filters, status
-from rest_framework.parsers import FormParser, MultiPartParser
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from blog.models import Post, Review
-from .permissions import IsAdminOrReadOnly, IsUserOrReadOnly
-from .serializers import PostSerializer, ReviewSerializer
-
+from django.shortcuts import render
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters, generics, status
+from rest_framework.filters import OrderingFilter, SearchFilter
+
+from .models import Comment, Post
+from .paginations import DefaultPagination
+from .serializers import CommentSerializer, PostSerializer
 
 # Create your views here.
 
-"""
-Creating blog view with permissions set to only admin 
 
-Creating and list out the blog created 
-"""
-
-
-class PostList(generics.ListAPIView):
-    # permission_classes = [IsAdminOrReadOnly]
-    serializer_class = PostSerializer
-    queryset = Post.postobjects.all()
-
-
-class PostDetail(generics.RetrieveAPIView):
-    queryset = Post.postobjects.all()
-    serializer_class = PostSerializer
-
-    def get_object(self, queryset=None, **kwargs):
-        item = self.kwargs.get("pk")
-        return get_object_or_404(Post, slug=item)
-
-
-# Post Search
-
-
-class PostListDetailfilter(generics.ListAPIView):
-
-    queryset = Post.postobjects.all()
+class PostCreateListView(generics.ListCreateAPIView):
+    queryset = Post.published.prefetch_related("comments").all()
     serializer_class = PostSerializer
     filter_backends = [filters.SearchFilter]
-    # '^' Starts-with search.
-    # '=' Exact matches.
-    # search_fields = ['^slug']
-    # '^' Starts-with search.
-    # '=' Exact matches.
-    # "@" full database search
-    search_fields = ["@slug"]
+    search_fields = ["title", "post"]
+    pagination_class = DefaultPagination
+
+    def get_serializer_context(self):
+        return {"request": self.request}
 
 
-# Post Admin Section
-# class AdminPostList(generics.ListAPIView):
-#     permission_classes = [IsAdminOrReadOnly]
-#     queryset = Post.postobjects.all()
-#     serializer_class = PostSerializer
-
-class AdminCreatePost(generics.ListCreateAPIView):
-    # permission_classes = [IsAdminOrReadOnly]
-    parser_classes = [MultiPartParser, FormParser]
+class PostRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PostSerializer
-    queryset = Post.postobjects.all()
-    
+    queryset = Post.published.prefetch_related("comments").all()
+
+    def get_serializer_context(self):
+        return {"request": self.request}
 
 
-class AdminPostUpdate(generics.RetrieveUpdateDestroyAPIView):
-    # permission_classes = [IsAdminOrReadOnly]
+class CommentCreateListView(generics.CreateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+    def get_serializer_context(self):
+        return {"request": self.request}
+
+
+class CommentRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Post.objects.all()
     serializer_class = PostSerializer
-    queryset = Post.postobjects.all()
-    
-    
-    
-
-
-    # def post(self, request, format=None):
-    #     serializer = PostSerializer(data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data, status=status.HTTP_200_OK)
-    #     else:
-    #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-"""
-Review session
-"""
-
-# Create your views here.
-class UserReview(generics.ListAPIView):
-    serializer_class = ReviewSerializer
-
-    #
-    # def get_queryset(self):
-    #     username = self.kwargs['username']
-    #     return Review.objects.filter(review_user__username = username)
 
     def get_queryset(self):
-        username = self.request.query_params.get('username', None)
-        return Review.objects.filter(review_user__username=username)
+        return Post.objects.filter(post_id=self.kwargs["post_pk"])
 
-
-class ReviewList(generics.ListAPIView):
-
-    serializer_class = ReviewSerializer
-    # permission_classes = [IsAuthenticated]
-    queryset = Review.objects.all()
-    filter_backends = [DjangoFilterBackend]
-
-
-    # def get_queryset(self):
-    #     username = self.request.query_params.get("username", None)
-    #     return Review.objects.filter(review_user__username=username)
-
-
-class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Review.objects.all()
-    serializer_class = ReviewSerializer
-    # permission_classes = [IsReviewUserOrReadOnly]
-    filter_backends = [DjangoFilterBackend]
-    
-
-
-class ReviewCreate(generics.CreateAPIView):
-    # permission_classes = [IsAuthenticated]
-    queryset = Review.objects.all()
-    serializer_class = ReviewSerializer
+    def get_serializer_context(self):
+        return {"request": self.request}
