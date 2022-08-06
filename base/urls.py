@@ -44,9 +44,9 @@ urlpatterns = [
         "social_auth/",
         include(("social_auth.urls", "social_auth"), namespace="social_auth"),
     ),
-    path("user/", include("product.urls")),
+    path("api/v1/", include("product.urls")),
     # Blog app
-    path("", include("blog.urls")),
+    path("api/v1/", include("blog.urls")),
     
     path("", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),
     path(
