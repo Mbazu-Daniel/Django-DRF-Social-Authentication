@@ -49,7 +49,9 @@ if DEBUG:
 }
 else:  
     DATABASES = {
-    'default': dj_database_url.config()
+    'default': dj_database_url.config(
+        # Feel free to alter this value to suit your needs.
+        default='postgres://sopxyldlxcmbnt:b6785d645ffb636cfc607c66a521a8ac94db74c132e2c39a7657d76ff2b518af@ec2-44-206-197-71.compute-1.amazonaws.com:5432/d2b7c6sjdtqjo0', conn_max_age=600)
 }
 
 
