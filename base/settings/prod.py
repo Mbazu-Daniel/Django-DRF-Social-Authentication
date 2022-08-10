@@ -2,8 +2,8 @@ from .common import *
 import os
 import dj_database_url
 
-# DEBUG = False
-# ALLOWED_HOSTS = ['bazbuy-prod.herokuapp.com']
+DEBUG = False
+ALLOWED_HOSTS = ['bizka.herokuapp.com']
 
 SECRET_KEY = os.environ['SECRET_KEY']
 

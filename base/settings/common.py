@@ -5,7 +5,7 @@ from decouple import config
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 
@@ -40,10 +40,11 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware", # cors header
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware", # whitenoise for static files
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "corsheaders.middleware.CorsMiddleware", # cors header
+    
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -55,12 +56,6 @@ MIDDLEWARE = [
 
 INTERNAL_IPS = ["127.0.0.1"]
 
-
-# CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:8001", "http://localhost:8001", "https://bizka.onrender.com"]
-
-# CORS_ALLOWED_ORIGIN_REGEXES = [
-#     r"^https://\w+\.onrender\.com$",
-# ]
 
 CORS_ALLOW_ALL_ORIGINS = True 
 
@@ -127,7 +122,8 @@ USE_TZ = True
 MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 # Default primary key field type
