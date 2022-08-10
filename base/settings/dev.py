@@ -31,22 +31,22 @@ if RENDER_EXTERNAL_HOSTNAME:
 DATABASES = {}
 
 if DEBUG:
-    DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "bizka",
-        "USER": "postgres",
-        "PASSWORD": "qwertyuiop",
-        "HOST": "localhost",
-        "PORT": 5432,
-    }
-}
 #     DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "bizka",
+#         "USER": "postgres",
+#         "PASSWORD": "qwertyuiop",
+#         "HOST": "localhost",
+#         "PORT": 5432,
 #     }
 # }
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 else:  
     DATABASES = {
     'default': dj_database_url.config(
