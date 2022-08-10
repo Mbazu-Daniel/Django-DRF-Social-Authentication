@@ -14,7 +14,7 @@ DEBUG = 'RENDER' not in os.environ
 SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ["https://bizka.herokuapp.com", "https://bizka.onrender.com"]
+ALLOWED_HOSTS = ["*"]
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME') 
 
