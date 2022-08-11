@@ -172,13 +172,13 @@ JAZZMIN_SETTINGS = {
     "site_brand": "Bizka",
 
     # Logo to use for your site, must be present in static files, used for brand on top left
-    "site_logo": "../../static/bizka.jpg",
+    "site_logo": "../../static/img/bizka.png",
 
     # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
-    "login_logo": "../../static/bizka.jpg",
+    "login_logo": "../static/img/bizka.png", 
 
     # Logo to use for login form in dark themes (defaults to login_logo)
-    "login_logo_dark": "../../static/bizka.jpg",
+    "login_logo_dark": "img/bizka.png",
 
     # Relative path to a favicon for your site, will default to site_logo if absent (ideally 32x32 px)
     "site_icon": None,
