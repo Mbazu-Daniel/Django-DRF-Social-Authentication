@@ -3,7 +3,7 @@ import os
 import dj_database_url
 
 DEBUG = False
-ALLOWED_HOSTS = ['bizka.herokuapp.com']
+ALLOWED_HOSTS = ['bizka.herokuapp.com', "bizka.onrender.com"]
 
 SECRET_KEY = os.environ['SECRET_KEY']
 
