@@ -5,10 +5,10 @@ from .models import Post, Comment, Category
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = [
-        "id",
+         "user",
         "category",
-        "user",
         "title",
+        "status"
     ]
     prepopulated_fields = {
         "slug": [

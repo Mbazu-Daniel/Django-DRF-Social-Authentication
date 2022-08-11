@@ -29,8 +29,7 @@ class CommentCreateListView(generics.CreateAPIView):
 
 
 class CommentRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
-    # queryset = Post.objects.all()
+    queryset = Post.objects.all()
     serializer_class = PostSerializer
 
-    def get_queryset(self):
-        return Post.objects.filter(post_id=self.kwargs["post_pk"])
+    

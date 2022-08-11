@@ -12,6 +12,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 INSTALLED_APPS = [
     
+    #Admin page customizer
+    "jazzmin",
     
     #django 
     "django.contrib.admin",
@@ -30,7 +32,6 @@ INSTALLED_APPS = [
     #third party 
      "phonenumber_field",
     "django_filters",
-    "taggit",
     "ckeditor",
      "rest_framework",
     # "rest_framework_simplejwt.token_blacklist",
@@ -40,11 +41,11 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    "corsheaders.middleware.CorsMiddleware", # cors header
+    
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware", # whitenoise for static files
     "django.contrib.sessions.middleware.SessionMiddleware",
-    
+    "corsheaders.middleware.CorsMiddleware", # cors header
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -56,8 +57,8 @@ MIDDLEWARE = [
 
 INTERNAL_IPS = ["127.0.0.1"]
 
+CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:8001", "http://localhost:8001", "bizka.herokuapp.com", "bizka.render.com"]
 
-CORS_ALLOW_ALL_ORIGINS = True 
 
 ROOT_URLCONF = "base.urls"
 
@@ -123,7 +124,7 @@ MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 # Default primary key field type
@@ -157,4 +158,41 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
+
+""" This settings is for the django admin customizer """
+
+JAZZMIN_SETTINGS = {
+    # title of the window (Will default to current_admin_site.site_title if absent or None)
+    "site_title": "Bizka Admin",
+
+    # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
+    "site_header": "Bizka",
+
+    # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
+    "site_brand": "Bizka",
+
+    # Logo to use for your site, must be present in static files, used for brand on top left
+    "site_logo": "../../static/bizka.jpg",
+
+    # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
+    "login_logo": "../../static/bizka.jpg",
+
+    # Logo to use for login form in dark themes (defaults to login_logo)
+    "login_logo_dark": "../../static/bizka.jpg",
+
+    # Relative path to a favicon for your site, will default to site_logo if absent (ideally 32x32 px)
+    "site_icon": None,
+
+    # Welcome text on the login screen
+    "welcome_sign": "Welcome to the Bizka"
+
+
+
+
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "theme": "flatly",
+    "dark_mode_theme": "darkly",
+}
 
