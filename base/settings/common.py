@@ -57,7 +57,7 @@ MIDDLEWARE = [
 
 INTERNAL_IPS = ["127.0.0.1"]
 
-CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:8001", "http://localhost:8001", "https://bizka.herokuapp.com", "https://bizka.render.com"]
+CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:8001", "http://localhost:8001", "http://127.0.0.1:3000", "http://localhost:3000", "https://bizka.herokuapp.com", "https://bizka.render.com", "https://bizka.vercel.app"]
 
 
 ROOT_URLCONF = "base.urls"
@@ -176,6 +176,7 @@ JAZZMIN_SETTINGS = {
 
     # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
     "login_logo": "../static/img/bizka.png", 
+    
 
     # Logo to use for login form in dark themes (defaults to login_logo)
     "login_logo_dark": "img/bizka.png",
