@@ -1,5 +1,7 @@
 from django.shortcuts import render
+
 from rest_framework import generics, status, views, permissions
+from rest_framework.decorators import action
 from .serializers import (
     RegisterSerializer,
     SetNewPasswordSerializer,
@@ -7,6 +9,7 @@ from .serializers import (
     EmailVerificationSerializer,
     LoginSerializer,
     LogoutSerializer,
+    UserProfileSerializer,
 )
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -33,8 +36,8 @@ from .utils import Util
 from django.shortcuts import redirect
 from django.http import HttpResponsePermanentRedirect
 import os
-
-
+from rest_framework.viewsets import ModelViewSet
+from rest_framework.views import APIView
 class CustomRedirect(HttpResponsePermanentRedirect):
 
     allowed_schemes = [os.environ.get("APP_SCHEME"), "http", "https"]
@@ -219,3 +222,9 @@ class LogoutAPIView(generics.GenericAPIView):
         serializer.save()
 
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class UserProfile(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserProfileSerializer
+    lookup_field = "id"
